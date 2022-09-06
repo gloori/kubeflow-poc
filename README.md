@@ -58,15 +58,16 @@ that you have to go through all of them  ...
 
 ### Other 
 
-**miniKF** was an option in the past, recent doc dropped it entirely. This option relied on
+**miniKF**   
+was an option in the past, recent doc dropped it entirely. This option relied on
 [`minikube`](https://minikube.sigs.k8s.io/docs/start/) installation. 
 
 I may explore this direction later. 
 
-**Plethora** 
-A [Linkedin blog post](https://www.linkedin.com/pulse/run-kubernetes-locally-minikube-microk8s-k3s-k3d-kind-sangode)
-__Run Kubernetes Locally using - minikube, microk8s, k3s, k3d, k0s, kind, crc, minishift, firekube__ 
-enumerate many alternatives to start off a local installation. 
+**Plethora**  
+Listed in a [Linkedin blog post](https://www.linkedin.com/pulse/run-kubernetes-locally-minikube-microk8s-k3s-k3d-kind-sangode) __Run Kubernetes Locally using - minikube, microk8s, k3s, k3d, k0s, kind, crc, minishift, firekube__ 
+
+This short blog just enumerate the many alternatives to start off a local installation. 
 
 ### Candidate Reduction 
 I eliminate the `k3ai` option as it's layered on top of `k3s`, it's WIP and the site isn't 
@@ -74,11 +75,11 @@ convincing.
 
 Rancher's `k3s` is a certified Kubernetes distribution
 
-### macOS Virtualziation Considerations 
-Both `kind` and `k3s` are layered on top of some virtualziation because native container 
+### macOS Virtualization Considerations 
+Both `kind` and `k3s` are layered on top of some virtualization because native container 
 enablement is in the Linux Kernel (namespaces and cgroups). On macOS some shim is required. 
 
-On macOS, there are only 2 practical alternatives to virtualziation: 
+On macOS, there are only 2 practical alternatives to virtualization: 
 
 - **HyperKit** which is bundled with __Docker Desktop__   
 - **Virtualbox**, which covers also the vagrant option.  
@@ -88,7 +89,7 @@ Virtualbox does and will not work on Apple Silicon (M1 chips), so we're left wit
 
 ### Version and Look-ahead Considerations 
 
-Snapshot of versions of different tools/prodcuts as of this writing:
+Snapshot of versions of different tools/products as of this writing:
 
 | product        | k8s version | release date | comments         |
 |----------------|---------|--------------|------------------|
@@ -106,14 +107,16 @@ Given that AWS lags 2 releases behind the k8s version used on macOS, expect issu
 
 
 
-### Documenation and macOS specificities 
+### Documentation and macOS specificity's 
 Both `kind` and `k3s` target mainly Linux. 
 
 - `k3s` doc doesn't even mention macOS 
 - `kind` .... 
 
 
-## toolset macOS
+## Prerequisite toolset on macOS
+
+### kubectl and kustomize
 [kustomize](https://kustomize.io/) requires `kubectl`  
 - Note the above link redirects to [kubectl docs](https://kubectl.docs.kubernetes.io/installation/)
 
@@ -122,9 +125,9 @@ brew install kubernetes-cli
 brew install kustomize
 ~~~
 
-### kubectl completion
+**kubectl completion**
 
-prerq. `brew install bash-completion`:
+I'm using `bash`, so prerq. is `brew install bash-completion`:
 ~~~
 kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ~~~
@@ -134,12 +137,13 @@ source the corresponding rc file and **verify**:
 kubectl v[tab]   # should complete to version
 ~~~
 
-### Install Docker Desktop on Mac
-[Docker Desktop doc](https://docs.docker.com/desktop/install/mac-install/)
+### Docker Desktop 
+Available in _Globality Self-Service_, or from 
+[Docker Desktop page](https://docs.docker.com/desktop/install/mac-install/):
 
 1. Download the binary: Intel or M1 (file is not a universal binary!) 
 1. Install 
-1. launch 
+1. Launch 
 
 You may need to register with Docker Hub
 
