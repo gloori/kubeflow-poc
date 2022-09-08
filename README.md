@@ -5,6 +5,10 @@
 - run `Kubeflow` locally on mac  
 - with the experience collected locally, run it in AWS, preferably **EKS**
 
+## Changelog
+2022-09-06 v0.1.0 tested by Keith on his Mac (spec TBD, probably M1)
+2022-09-08 v0.1.1 tested on mbp 2019 i7@2.6GHz X 6 core, 16G RAM
+
 ## Refs
 
 [Kubeflow](https://www.kubeflow.org/) official site
