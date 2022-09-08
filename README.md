@@ -233,11 +233,13 @@ You may need to register with Docker Hub
 ## Using Kubeflow with `kind` 
 
 ### Install `kind` 
-Follow [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/#installation).   
-Command below takes ~20 secs: 
+I Followed [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/#installation). 
+The verified content is below.   
+
 ~~~sh
 brew install kind
 ~~~
+this takes ~20 secs: 
 
 ### Create Cluster
 This will bootstrap a Kubernetes single-node cluster using a pre-built node image. 
@@ -280,6 +282,41 @@ using `kind`:
 $ kind get clusters
 kind
 ~~~
+
+
+## Using Kubeflow with `k3s`+ `k3d`
+TBC
+
+
+## Deploy Kubeflow Pipelines
+Now that you have a Kubernetes cluster up and running,
+run the script `deploy-kubeflow-pipelines.sh` or copy the code snippet from the 
+[source](https://www.kubeflow.org/docs/components/pipelines/installation/localcluster-deployment/#deploying-kubeflow-pipelines). 
+
+The script runs `PIPELINE_VERSION=1.8.5`, which as of this writing, is latest. 
+
+Noteworthy: 
+
+- It takes a few minutes for the containers to download and connect
+- A new namespace is created, `kubeflow`
+
+You can monitor the state with: 
+~~~
+kubectl get po -n kubeflow
+~~~
+
+If you see containers' status of `ContainerCreating` and even `CrashLoopBackOff` simply wait. 
+
+
+
+## TODOs 
+
+Instructions for testing/demo 
+
+Improve on the Cluster Creation:   
+- dedicated worker node or 2 
+- resource monitoring 
+- tune docker server resources (CPUs and RAM) 
 
 
 

@@ -1,0 +1,13 @@
+# below is Docker Desktop's default config for Docker Engine v20.10.17 
+
+# In Docker Desktop's dashboard it's a json file. I converted it to yaml to 
+# allow comments.
+# In case something is screwed, this needs to be restored in Settings/"Docker Engine"
+---
+builder:
+  gc:
+    defaultKeepStorage: 20GB
+    enabled: true
+experimental: false
+features:
+  buildkit: true
