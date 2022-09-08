@@ -307,11 +307,20 @@ kubectl get po -n kubeflow
 
 If you see containers' status of `ContainerCreating` and even `CrashLoopBackOff` simply wait. 
 
+### Connect to the Kubeflow Pipelines UI
 
+~~~
+kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80
+~~~
 
+Then point your browser to `http://localhost:8080`
+
+You may choose another port than 8080. Adjust the port-forwarding and URL accordingly. 
+
+---
 ## TODOs 
 
-Instructions for testing/demo 
+Instructions for Testing and Notebook demo 
 
 Improve on the Cluster Creation:   
 - dedicated worker node or 2 
