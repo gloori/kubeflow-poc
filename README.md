@@ -319,8 +319,51 @@ kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80
 
 Then point your browser to `http://localhost:8080`
 
-You may choose another port than 8080. Adjust the port-forwarding and URL accordingly. 
+You may choose a port other than 8080. Adjust the port-forwarding and URL accordingly. 
 
+## Record of State After Deployment 
+
+Inventory for the record
+
+### deployments
+~~~
+$ kubectl -n kubeflow get deployment
+NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+cache-deployer-deployment         1/1     1            1           5h34m
+cache-server                      1/1     1            1           5h34m
+metadata-envoy-deployment         1/1     1            1           5h34m
+metadata-grpc-deployment          1/1     1            1           5h34m
+metadata-writer                   1/1     1            1           5h34m
+minio                             1/1     1            1           5h34m
+ml-pipeline                       1/1     1            1           5h34m
+ml-pipeline-persistenceagent      1/1     1            1           5h34m
+ml-pipeline-scheduledworkflow     1/1     1            1           5h34m
+ml-pipeline-ui                    1/1     1            1           5h34m
+ml-pipeline-viewer-crd            1/1     1            1           5h34m
+ml-pipeline-visualizationserver   1/1     1            1           5h34m
+mysql                             1/1     1            1           5h34m
+workflow-controller               1/1     1            1           5h34m
+~~~
+
+### pods
+~~~
+$ kubectl -n kubeflow get po
+NAME                                               READY   STATUS    RESTARTS        AGE
+cache-deployer-deployment-6775db7d9f-2qjsk         1/1     Running   0               5h33m
+cache-server-d9b96559b-rz4dm                       1/1     Running   0               5h33m
+metadata-envoy-deployment-d848cdb-m9khh            1/1     Running   0               5h33m
+metadata-grpc-deployment-784b8b5fb4-knnf8          1/1     Running   7 (5h27m ago)   5h33m
+metadata-writer-6447bd6f55-tjlhr                   1/1     Running   2 (5h25m ago)   5h33m
+minio-65dff76b66-zfb4q                             1/1     Running   0               5h33m
+ml-pipeline-685b7b74d-nw52k                        1/1     Running   7 (5h26m ago)   5h33m
+ml-pipeline-persistenceagent-bd9f8d4d7-qbj6s       1/1     Running   2 (5h25m ago)   5h33m
+ml-pipeline-scheduledworkflow-544c8bbc58-jvdfm     1/1     Running   0               5h33m
+ml-pipeline-ui-6c895bb85b-9754x                    1/1     Running   0               5h33m
+ml-pipeline-viewer-crd-79db74f698-jqqn2            1/1     Running   0               5h33m
+ml-pipeline-visualizationserver-74fbc54649-xrrvw   1/1     Running   0               5h33m
+mysql-67f7987d45-b62kf                             1/1     Running   0               5h33m
+workflow-controller-594fd96fd5-pjmw8               1/1     Running   1 (3h56m ago)   5h33m
+~~~
 ---
 ## TODOs 
 
