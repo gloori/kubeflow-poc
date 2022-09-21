@@ -233,12 +233,37 @@ Available in _Globality Self-Service_, or from
 
 You may need to register with Docker Hub
 
+#### Version
+For reference (mid Sept 2022), I'm using Docker Desktop Version 4.12.0 (85629)
+
+
+#### Settings 
+
+**Kubernetes** don't Enable[!], it's not used.
+
+For **Resources** the default values are below, I didn't change: 
+
+ Resource       | Value 
+----------------|---------
+CPUs            |  6
+Memory          |  8G
+Swap            |  1G
+Disk image size | 60G
+Disk image location | ~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw
+
+
+
+**Docker Engine**
+
+The json config of the _Docker Engine_ is copied in `docker-desktop_engine-config.yaml` in this repo. 
+
 
 ## Using Kubeflow with `kind` 
 
 ### Install `kind` 
-I Followed [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/#installation). 
-The verified content is below.   
+I followed the [Kind Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+to install **version v0.15.0** 
+The doc isn't clear, the instructions below are verified to work. 
 
 ~~~sh
 brew install kind
@@ -246,8 +271,8 @@ brew install kind
 this takes ~20 secs: 
 
 ### Create Cluster
-This will bootstrap a Kubernetes single-node cluster using a pre-built node image. 
-Not sure one node is enough ... 
+This will bootstrap a Kubernetes **single-node** cluster using a pre-built node image. 
+One node is enough to support the demo ... 
 
 Sample output: 
 ~~~
@@ -272,7 +297,7 @@ Verify with `kubectl`:
 $ kubectl config get-clusters
 NAME
 kind-kind
-docker-desktop
+
 
 $ kubectl cluster-info --context kind-kind
 Kubernetes control plane is running at https://127.0.0.1:65051
@@ -380,6 +405,9 @@ Improve on the Cluster Creation:
 
 
 ## Kubeflow on AWS
+
+**TBC**
+
 [Kubeflow page](https://www.kubeflow.org/docs/distributions/aws/) 
 
 

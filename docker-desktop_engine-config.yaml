@@ -3,6 +3,11 @@
 # In Docker Desktop's dashboard it's a json file. I converted it to yaml to 
 # allow comments.
 # In case something is screwed, this needs to be restored in Settings/"Docker Engine"
+
+## convert back to json:
+## I'm using a ruby one-liner (python's yaml module isn't bundled, requires installation)
+# alias json2yaml='ruby -ryaml -rjson -e '\''puts YAML.dump(JSON.parse(STDIN.read))'\'''
+# alias yaml2json='ruby -ryaml -rjson -e '\''puts JSON.pretty_generate(YAML.load(ARGF))'\'''
 ---
 builder:
   gc:
