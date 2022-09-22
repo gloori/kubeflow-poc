@@ -345,11 +345,12 @@ If you see containers' status of `ContainerCreating` and even `CrashLoopBackOff`
 
 ### Connect to the Kubeflow Pipelines UI
 
+**port-forwarding** run this foreground task in a separate terminal or tab:
 ~~~
 kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80
 ~~~
 
-Then point your browser to `http://localhost:8080`
+**browser** goto `http://localhost:8080`
 
 You may choose a port other than 8080. Adjust the port-forwarding and URL accordingly. 
 
