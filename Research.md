@@ -203,8 +203,7 @@ Back to kubeflow's
 - Note that _kustomize_ is part of Kubernetes (despite the link and site look). 
 
 ~~~
-brew install kubernetes-cli
-brew install kustomize
+brew install kubernetes-cli kustomize k9s
 ~~~
 
 **kubectl completion**
