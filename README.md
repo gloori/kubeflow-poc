@@ -244,12 +244,15 @@ For reference (mid Sept 2022), I'm using Docker Desktop Version 4.12.0 (85629)
 For **Resources** the default values are below, I didn't change: 
 
  Resource       | Value 
-----------------|---------
+----------------|---------:
 CPUs            |  6
 Memory          |  8G
 Swap            |  1G
 Disk image size | 60G
-Disk image location | ~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw
+
+Disk image location: `~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw`  
+The actual file size may be smaller than shown by `ls` (sparse file). 
+For reference, on my system it's 22GB. 
 
 
 
@@ -274,20 +277,31 @@ this takes ~20 secs:
 This will bootstrap a Kubernetes **single-node** cluster using a pre-built node image. 
 One node is enough to support the demo ... 
 
+**Note** `kind` doesn't provide means to freeze/pause the cluster. Once created,
+you can only delete it. However, it survives Docker and macOS restarts. 
+
+Run: 
+
+~~~sh
+$ kind create cluster --name kftest01
+~~~
+
 Sample output: 
 ~~~
-$ kind create cluster
-Creating cluster "kind" ...
+Creating cluster "kftest01" ...
  ✓ Ensuring node image (kindest/node:v1.25.0) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
  ✓ Installing CNI 🔌
  ✓ Installing StorageClass 💾
-Set kubectl context to "kind-kind"
+Set kubectl context to "kind-kftest01"
 You can now use your cluster with:
 
-kubectl cluster-info --context kind-kind
+kubectl cluster-info --context kind-kftest01
+
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+
 
 Thanks for using kind! 😊
 ~~~
@@ -296,10 +310,10 @@ Verify with `kubectl`:
 ~~~
 $ kubectl config get-clusters
 NAME
-kind-kind
+kind-kftest01
 
 
-$ kubectl cluster-info --context kind-kind
+$ kubectl cluster-info --context kind-kftest01
 Kubernetes control plane is running at https://127.0.0.1:65051
 CoreDNS is running at https://127.0.0.1:65051/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
@@ -309,12 +323,9 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 using `kind`:
 ~~~
 $ kind get clusters
-kind
+kftest02
 ~~~
 
-
-## Using Kubeflow with `k3s`+ `k3d`
-TBC
 
 
 ## Deploy Kubeflow Pipelines
@@ -402,6 +413,9 @@ Improve on the Cluster Creation:
 
 
 
+
+## Using Kubeflow with `k3s`+ `k3d`
+TBC
 
 
 ## Kubeflow on AWS
