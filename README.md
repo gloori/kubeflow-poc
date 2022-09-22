@@ -5,54 +5,50 @@
 - run `Kubeflow` locally on mac  
 - with the experience collected locally, run it in AWS, preferably **EKS**
 
+## Contents
+
+- [Kubeflow POC](#kubeflow-poc)
+  - [Objective](#objective)
+  - [Contents](#contents)
+  - [Changelog](#changelog)
+  - [Background and References](#background-and-references)
+  - [Options for Local Installation](#options-for-local-installation)
+    - [Official Kubeflow doc](#official-kubeflow-doc)
+    - [Other options for Local Installation](#other-options-for-local-installation)
+    - [Candidate Reduction](#candidate-reduction)
+    - [macOS Virtualization Considerations](#macos-virtualization-considerations)
+    - [Version and Look-ahead Considerations](#version-and-look-ahead-considerations)
+    - [Documentation and macOS Specific Targeting](#documentation-and-macos-specific-targeting)
+      - [`k3s`](#k3s)
+      - [`kind`](#kind)
+  - [Prerequisite toolset on macOS](#prerequisite-toolset-on-macos)
+    - [Install kubectl and kustomize](#install-kubectl-and-kustomize)
+    - [Install Docker Desktop](#install-docker-desktop)
+      - [Version](#version)
+      - [Settings](#settings)
+  - [Using Kubeflow with `kind`](#using-kubeflow-with-kind)
+    - [Install `kind`](#install-kind)
+    - [Create Cluster](#create-cluster)
+  - [Deploy Kubeflow Pipelines](#deploy-kubeflow-pipelines)
+    - [Connect to the Kubeflow Pipelines UI](#connect-to-the-kubeflow-pipelines-ui)
+  - [Record of State After Deployment](#record-of-state-after-deployment)
+    - [deployments](#deployments)
+    - [pods](#pods)
+  - [~~~](#)
+  - [TODOs](#todos)
+  - [Using Kubeflow with `k3s`+ `k3d`](#using-kubeflow-with-k3s-k3d)
+  - [Kubeflow on AWS](#kubeflow-on-aws)
+  - [References](#references)
+    - [YouTube](#youtube)
+      - [Hands-on Serving Models Using KFserving](#hands-on-serving-models-using-kfserving)
+      - [YT Channel _Radovan Parrak_ / credo.be](#yt-channel-radovan-parrak--credobe)
+
 ## Changelog
-* 2022-09-06 v0.1.0 tested by Keith on his Mac (spec TBD, probably M1)
-* 2022-09-08 v0.1.1 tested on Intel mbp 2019 i7@2.6GHz X 6 core, 16G RAM
+* 2022-09-06 `v0.1.0 tested by Keith on his Mac (spec TBD, probably M1)`
+* 2022-09-08 `v0.1.1 tested on Intel mbp 2019 i7@2.6GHz X 6 core, 16G RAM`
 
-## Refs
-
-[Kubeflow](https://www.kubeflow.org/) official site
-
-[local Deployment of Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/installation/localcluster-deployment) in the official doc  
-- page last updated Mar 7, 2022 (minor URL fixes)
-
-[Kubernetes Documentation](https://kubernetes.io/docs/home/) official doc
-
-
-### YouTube 
-
-**HighPrio**  and devops oriented with beefy content, albeit 2 years old 
-
-#### Hands-on Serving Models Using KFserving 
-Theofilos Papapanagiotou // MLOps Meetup #40   
-[YT link](https://www.youtube.com/watch?v=VtZ9LWyJPdc) | 58 min 
-2,978 views Oct 30, 2020   
-MLOps community meetup #40! Last Wednesday, we talked to Theofilos Papapanagiotou, Data Science Architect at Prosus, about Hands-on Serving Models Using KFserving.
-
-#### YT Channel _Radovan Parrak_ / credo.be
-Good Intro for high altitude view, mostly targets Data Scientists from radovan.parrak@credo.be
-
-**Kubeflow Tutorial | Model Development**
-
-[YT link](https://www.youtube.com/watch?v=gprgs7fua3I) | 25 min
-2,712 views Oct 21, 2021  
-This video walks you through a simple modeling example in Kubeflow Notebooks.
-
-
-**Kubeflow Tutorial | Model Serving**
-
-[YT link](https://youtu.be/hRmmzItkPkA) | 14 min
-703 views  Oct 21, 2021   
-In this video, I walk you through a simple model engineering process using Kubeflow Fairing (Note: nowadays, there is a better way to serve models, with Kubeflow Serving)
-
-`At 11:25 switch POV from Data Scientist to devops`
-
-
-**Data Analytics in Retail Banking Conference | Building Sustainable ML Platforms**
-
-[YT link](https://youtu.be/wLTjJqWuw0I)
-11 views Oct 21, 2021  
-My talk on how to build a sustainable ML cloud platform from open-source components at the Data Analytics in Retail Banking conference (https://www.uni-global.eu/portfolio-p....
+## Background and References
+see [References](#References) by EOF
 
 ## Options for Local Installation 
 
@@ -425,3 +421,47 @@ TBC
 [Kubeflow page](https://www.kubeflow.org/docs/distributions/aws/) 
 
 
+## References
+
+[Kubeflow](https://www.kubeflow.org/) official site
+
+[local Deployment of Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/installation/localcluster-deployment) in the official doc  
+- page last updated Mar 7, 2022 (minor URL fixes)
+
+[Kubernetes Documentation](https://kubernetes.io/docs/home/) official doc
+
+
+### YouTube 
+
+**HighPrio**  and devops oriented with beefy content, albeit 2 years old 
+
+#### Hands-on Serving Models Using KFserving 
+Theofilos Papapanagiotou // MLOps Meetup #40   
+[YT link](https://www.youtube.com/watch?v=VtZ9LWyJPdc) | 58 min 
+2,978 views Oct 30, 2020   
+MLOps community meetup #40! Last Wednesday, we talked to Theofilos Papapanagiotou, Data Science Architect at Prosus, about Hands-on Serving Models Using KFserving.
+
+#### YT Channel _Radovan Parrak_ / credo.be
+Good Intro for high altitude view, mostly targets Data Scientists from radovan.parrak@credo.be
+
+**Kubeflow Tutorial | Model Development**
+
+[YT link](https://www.youtube.com/watch?v=gprgs7fua3I) | 25 min
+2,712 views Oct 21, 2021  
+This video walks you through a simple modeling example in Kubeflow Notebooks.
+
+
+**Kubeflow Tutorial | Model Serving**
+
+[YT link](https://youtu.be/hRmmzItkPkA) | 14 min
+703 views  Oct 21, 2021   
+In this video, I walk you through a simple model engineering process using Kubeflow Fairing (Note: nowadays, there is a better way to serve models, with Kubeflow Serving)
+
+`At 11:25 switch POV from Data Scientist to devops`
+
+
+**Data Analytics in Retail Banking Conference | Building Sustainable ML Platforms**
+
+[YT link](https://youtu.be/wLTjJqWuw0I)
+11 views Oct 21, 2021  
+My talk on how to build a sustainable ML cloud platform from open-source components at the Data Analytics in Retail Banking conference (https://www.uni-global.eu/portfolio-p....
