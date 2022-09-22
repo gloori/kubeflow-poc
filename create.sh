@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Version Parameters - change according to src 
-export ISTIO_VERSION=1.15.0
-export PIPELINE_VERSION=1.8.5
+#export ISTIO_VERSION=1.15.0
+#xport PIPELINE_VERSION=1.8.5
 export CLUSTER_NAME=kubeflow-cluster
 export SLEEP_SEC=10   # quiesence after deleting a cluster
 
@@ -23,7 +23,7 @@ function delete_prev_cluster
 		if [[ $ANS == "y" ]]; then
 			kind delete cluster --name $kf
 		else
-			printf "Baining out..."
+			printf "Bailing out..."
 			exit 0
 		fi
 		printf "sleeping $SLEEP_SEC...\n"
@@ -31,41 +31,27 @@ function delete_prev_cluster
 	done
 }
 
-function kustomize_kubeflow_pipelines
-{
-	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$PIPELINE_VERSION"
-	kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
-	kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/platform-agnostic-pns?ref=$PIPELINE_VERSION"
-}
-
-function create_istio_ingress
-{
-	cd istio
-	curl -L https://istio.io/downloadIstio | sh -
-	istio-${ISTIO_VERSION}/bin/istioctl install --set profile=minimal -y
-
-	kubectl apply -f ingress.yaml
-	kubectl apply -f gateway.yaml
-	kubectl apply -f virtualservice.yaml
-	cd ..
-}
 
 # Delete the old cluster
-#kind delete clusters kubeflow-cluster
 delete_prev_cluster
 stt=$(date '+%s')
 
-# Create the new cluster
+# Create the kind cluster
 time kind create cluster --name $CLUSTER_NAME --config kind-cluster-config.yaml
 
-#time kustomize_kubeflow_pipelines
+# populate the cluster with kubeflow, with over 60 pods
+cd manifests-1.6.0
+while ! kustomize build example | kubectl apply -f -; do
+	echo "Retrying to apply resources"
+	sleep $SLEEP_SEC done
 
-#time create_istio_ingress
 ent=$(date '+%s')
 
-printf "${EMBLU}Cluster $CLUSTER_NAME creation complete${RESET}.\n"
-#Expect 3-4 mins for istio to become RUNNINg\n"
-#printf "The kubeflow dashboard should be at  ${FGYEL}http://kubeflow.local.gd${RESET}\n"
+printf "${EMBLU}Cluster $CLUSTER_NAME creation complete${RESET}. use k9s to wait for all pods RUNNING\n"
+printf "This may take 8 minutes or more\n\n" 
+printf "The kubeflow dashboard should be at ${FGYEL}http://localhost:8080${RESET}\n"
+printf "once you run port-forwarding:\n"
+printf "    kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80\n"
 
 et=$(date "+%F %H:%M:%S")
-printf "${GREEN}Finished:$RESET $et, elapsed $((ent - stt)) seconds\n"
+printf "${GREEN}Finished:$RESET $et, elapsed $((ent - stt)) seconds\n\n"
