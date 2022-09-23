@@ -2,7 +2,8 @@
 
 ## Objective 
 
-- run `Kubeflow` locally on mac in a `kind` cluster of 3 nodes. 
+run `Kubeflow` locally on macOS in a `kind` cluster of 3 nodes. 
+
 
 ## Research Notes
 old README, renamed [Research](./Research.md)
@@ -15,5 +16,11 @@ the script below does all the rest:
 ~~~
 ./create.sh
 ~~~
+
+## Credentials
+login to the dashboard
+
+username: `user@example.com`  
+password: `12341234`
 
 
