@@ -21,7 +21,7 @@ function delete_prev_cluster
 		printf "Delete kind cluster ${FGYEL}$kf${RESET} "
 		read -p "[y]: " ANS; [[ -z $ANS ]] && ANS="y";
 		if [[ $ANS == "y" ]]; then
-			kind delete cluster --name $kf
+			kind delete cluster --name $kf || return 1
 		else
 			printf "Bailing out..."
 			exit 0
@@ -33,25 +33,29 @@ function delete_prev_cluster
 
 
 # Delete the old cluster
-delete_prev_cluster
+delete_prev_cluster || exit 1
 stt=$(date '+%s')
 
 # Create the kind cluster
 time kind create cluster --name $CLUSTER_NAME --config kind-cluster-config.yaml
 
 # populate the cluster with kubeflow, with over 60 pods
+set -vx
 cd manifests-1.6.0
 while ! kustomize build example | kubectl apply -f -; do
 	echo "Retrying to apply resources"
-	sleep $SLEEP_SEC done
+	sleep $SLEEP_SEC 
+done
+set +vx
 
 ent=$(date '+%s')
 
-printf "${EMBLU}Cluster $CLUSTER_NAME creation complete${RESET}. use k9s to wait for all pods RUNNING\n"
-printf "This may take 8 minutes or more\n\n" 
-printf "The kubeflow dashboard should be at ${FGYEL}http://localhost:8080${RESET}\n"
-printf "once you run port-forwarding:\n"
-printf "    kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80\n"
+printf "\n\n${EMBLU}Cluster $CLUSTER_NAME creation complete${RESET}. Use k9s to wait for all pods RUNNING\n"
+printf "The Cluster may take well over 15 minutes to boot \n\n" 
+printf "Then establish port-forwarding:\n"
+printf "    kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80\n\n"
+printf "The kubeflow dashboard is at ${FGYEL}http://localhost:8080${RESET}\n"
 
 et=$(date "+%F %H:%M:%S")
 printf "${GREEN}Finished:$RESET $et, elapsed $((ent - stt)) seconds\n\n"
+
